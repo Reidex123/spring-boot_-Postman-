@@ -1,6 +1,7 @@
 package com.spring.exercise;
 
 /**
+ * Student Controller class to manage students in-memory
  * @PathVariable -> extracting a certain value in Jackson file
  * @RequestBody -> convert the body of JSON to a java Object
  */
