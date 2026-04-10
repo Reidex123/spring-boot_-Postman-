@@ -1,4 +1,4 @@
-package com.spring.exercise.DataBaseApp;
+package com.spring.exercise;
 
 public enum StudentStatus {
     ACTIVE;

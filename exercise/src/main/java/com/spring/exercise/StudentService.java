@@ -21,6 +21,7 @@ public class StudentService {
         return repository.findAll();
     }
 
+    @SuppressWarnings("null")
     @Transactional(readOnly = true)
     public Student getStudentById(Long id) throws StudentNotFoundException {
         return repository.findById(id).orElseThrow(() -> new StudentNotFoundException("Student " + id + " not found"));
@@ -32,8 +33,7 @@ public class StudentService {
         }
 
         student.setEnrollmentDate(LocalDate.now());
-        student.setStatus("ACTIVE");
-
+        
         return repository.save(student);
     }
 
