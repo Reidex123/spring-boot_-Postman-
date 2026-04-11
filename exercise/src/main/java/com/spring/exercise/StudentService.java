@@ -27,14 +27,37 @@ public class StudentService {
         return repository.findById(id).orElseThrow(() -> new StudentNotFoundException(id));
     }
 
-    public Student createStudent(Student student) {
-        if (repository.existsByEmail(student.getEmail())) {
-            throw new IllegalArgumentException("The Student with email " + student.getEmail() + " already exist!");
+    public StudentResponse createStudent(Student s) {
+        if (repository.existsByEmail(s.getEmail())) {
+            throw new EmailAlreadyExistsException(s.getEmail());
         }
 
-        student.setEnrollmentDate(LocalDate.now());
+        // Map DTO -> Entity
+        Student student = new Student();
 
-        return repository.save(student);
+        student.setName(s.getName());
+        student.setEmail(s.getEmail());
+        student.setYear(s.getYear());
+        student.setEnrollmentDate(LocalDate.now());
+        student.setStatus(StudentStatus.ACTIVE);
+
+        // Map Entity -> Response DTO
+        Student saved = repository.save(student);
+
+        return toResponse(saved);
+    }
+
+    private StudentResponse toResponse(Student student) {
+        StudentResponse response = new StudentResponse();
+
+        response.setId(student.getId());
+        response.setName(student.getName());
+        response.setEmail(student.getEmail());
+        response.setYear(student.getYear());
+        response.setEnrollmentDate(student.getEnrollmentDate());
+        response.setStatus(student.getStatus().name());
+
+        return response;
     }
 
     public Student updateStudent(Long id, Student updatedData) throws StudentNotFoundException {
