@@ -30,13 +30,11 @@ public class StudentController {
     }
 
     @GetMapping
-    public List<Student> getAll() {
+    public List<Student> getStudents(@RequestParam(required = false) @Min(1) @Max(7) Integer year) {
+        if (year != null) {
+            return service.getStudentsByYear(year);
+        }
         return service.getAllStudents();
-    }
-
-    @GetMapping
-    public List<Student> getByYear(@RequestParam @Min(1) @Max(7) int year) {
-        return service.getStudentsByYear(year);
     }
 
     @GetMapping("/{id}")

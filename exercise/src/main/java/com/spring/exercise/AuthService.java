@@ -28,7 +28,7 @@ public class AuthService {
 
         User user = new User();
         user.setEmail(request.email());
-        user.setPassword(passwordEncoder.encode(request.email()));
+        user.setPassword(passwordEncoder.encode(request.password()));
         user.setRole(Role.STUDENT);
 
         userRepository.save(user);
@@ -45,5 +45,5 @@ public class AuthService {
 
         return new AuthResponse(token);
     }
-    
+
 }

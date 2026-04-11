@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -54,7 +55,7 @@ public class User implements UserDetails {
     }
 
     @Override
-    public boolean isCredentialsExpired() {
+    public boolean isCredentialsNonExpired() {
         return true;
     }
 
@@ -75,6 +76,7 @@ public class User implements UserDetails {
         this.email = email;
     }
 
+    @Override
     public String getPassword() {
         return this.password;
     }

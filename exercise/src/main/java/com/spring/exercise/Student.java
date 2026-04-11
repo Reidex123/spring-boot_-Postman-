@@ -39,7 +39,7 @@ public class Student {
     @Column(unique = true, nullable = false)
     private String email;
 
-    @Column(nullable = false)
+    @Column(name = "study_year",nullable = false)
     private int year;
 
     @Column(name = "enrollment_date")

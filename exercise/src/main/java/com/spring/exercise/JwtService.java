@@ -7,6 +7,7 @@ import java.util.function.Function;
 import javax.crypto.SecretKey;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import io.jsonwebtoken.Claims;
@@ -25,8 +26,8 @@ public class JwtService {
     private long expirationMs;
 
     // Generate a JWT token for a user
-    public String generateToken(UserDetails userDetails) {
-        return Jwts.builder().subject(userDetails.getUsername()).issuedAt(new Date())
+    public String generateToken(User user) {
+        return Jwts.builder().subject(user.getUsername()).issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + expirationMs)).signWith(getSigningKey()).compact();
     }
 
@@ -56,7 +57,4 @@ public class JwtService {
         return Keys.hmacShaKeyFor(this.secretKey.getBytes(StandardCharsets.UTF_8));
     }
 
-    boolean isTokenValid(String token, org.springframework.security.core.userdetails.UserDetails userDetails) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
 }
