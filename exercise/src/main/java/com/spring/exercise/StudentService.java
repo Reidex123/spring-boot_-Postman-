@@ -24,7 +24,7 @@ public class StudentService {
     @SuppressWarnings("null")
     @Transactional(readOnly = true)
     public Student getStudentById(Long id) throws StudentNotFoundException {
-        return repository.findById(id).orElseThrow(() -> new StudentNotFoundException("Student " + id + " not found"));
+        return repository.findById(id).orElseThrow(() -> new StudentNotFoundException(id));
     }
 
     public Student createStudent(Student student) {
@@ -33,7 +33,7 @@ public class StudentService {
         }
 
         student.setEnrollmentDate(LocalDate.now());
-        
+
         return repository.save(student);
     }
 

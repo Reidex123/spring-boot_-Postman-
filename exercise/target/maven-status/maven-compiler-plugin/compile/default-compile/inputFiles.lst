@@ -1,3 +1,7 @@
 C:\Users\Koketso\Documents\spring_boot\exercise\src\main\java\com\spring\exercise\ExerciseApplication.java
 C:\Users\Koketso\Documents\spring_boot\exercise\src\main\java\com\spring\exercise\Student.java
 C:\Users\Koketso\Documents\spring_boot\exercise\src\main\java\com\spring\exercise\StudentController.java
+C:\Users\Koketso\Documents\spring_boot\exercise\src\main\java\com\spring\exercise\StudentNotFoundException.java
+C:\Users\Koketso\Documents\spring_boot\exercise\src\main\java\com\spring\exercise\StudentRepository.java
+C:\Users\Koketso\Documents\spring_boot\exercise\src\main\java\com\spring\exercise\StudentService.java
+C:\Users\Koketso\Documents\spring_boot\exercise\src\main\java\com\spring\exercise\StudentStatus.java

@@ -1,8 +1,18 @@
 package com.spring.exercise;
 
-public class StudentNotFoundException extends Exception {
+/**
+ * Find non-existent request resource -> 404
+ */
+public class StudentNotFoundException extends RuntimeException {
 
-    public StudentNotFoundException(String message) {
-        super(message);
+    private final Long studentId;
+
+    public StudentNotFoundException(Long id) {
+        super("Student with ID " + id + " was not found!");
+        this.studentId = id;
+    }
+
+    public Long getStudentId() {
+        return this.studentId;
     }
 }
