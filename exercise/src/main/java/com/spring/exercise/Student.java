@@ -51,7 +51,7 @@ public class Student {
     public Student() {
     }
 
-    public Student(String name, String email, int year) {
+    public Student(Long par, String name, String email, int year) {
         this.name = name;
         this.email = email;
         this.year = year;

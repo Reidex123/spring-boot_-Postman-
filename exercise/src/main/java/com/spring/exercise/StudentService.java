@@ -27,7 +27,7 @@ public class StudentService {
         return repository.findById(id).orElseThrow(() -> new StudentNotFoundException(id));
     }
 
-    public StudentResponse createStudent(Student s) {
+    public Student createStudent(Student s) {
         if (repository.existsByEmail(s.getEmail())) {
             throw new EmailAlreadyExistsException(s.getEmail());
         }
