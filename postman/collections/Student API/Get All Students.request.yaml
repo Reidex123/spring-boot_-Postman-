@@ -1,0 +1,63 @@
+$kind: http-request
+url: '{{baseUrl}}/api/students'
+method: GET
+order: 1000
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      var template = `
+      <style>
+          table { border-collapse: collapse; width: 100%; font-family: Arial, sans-serif; font-size: 13px; }
+          th { background-color: #FF6C37; color: white; padding: 10px 12px; text-align: left; border: 1px solid #ddd; }
+          td { padding: 8px 12px; border: 1px solid #ddd; }
+          tr:nth-child(even) { background-color: #f9f9f9; }
+          tr:hover { background-color: #f1f1f1; }
+          .container { padding: 10px; }
+          h3 { font-family: Arial, sans-serif; color: #333; }
+      </style>
+      <div class="container">
+          <h3>Response Table ({{count}} records)</h3>
+          <table>
+              <thead>
+                  <tr>
+                      {{#each columns}}
+                      <th>{{this}}</th>
+                      {{/each}}
+                  </tr>
+              </thead>
+              <tbody>
+                  {{#each rows}}
+                  <tr>
+                      {{#each this}}
+                      <td>{{this}}</td>
+                      {{/each}}
+                  </tr>
+                  {{/each}}
+              </tbody>
+          </table>
+      </div>
+      `;
+
+      function constructVisualizerPayload() {
+          var body = pm.response.json();
+          var data = Array.isArray(body) ? body : [body];
+
+          if (data.length === 0) {
+              return { columns: [], rows: [], count: 0 };
+          }
+
+          var columns = Object.keys(data[0]);
+          var rows = data.map(function(item) {
+              return columns.map(function(col) {
+                  var val = item[col];
+                  if (val === null || val === undefined) return '';
+                  if (typeof val === 'object') return JSON.stringify(val);
+                  return String(val);
+              });
+          });
+
+          return { columns: columns, rows: rows, count: data.length };
+      }
+
+      pm.visualizer.set(template, constructVisualizerPayload());
